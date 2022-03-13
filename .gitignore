@@ -127,3 +127,8 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+pychr.cfg
+UI/icon.ico
+UI/EditorGrid.png
+UI/PictureGrid.png

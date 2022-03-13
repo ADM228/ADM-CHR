@@ -1,0 +1,7 @@
+<RCC>
+  <qresource prefix="Png">
+    <file>icon.ico</file>
+    <file>PictureGrid.png</file>
+    <file>EditorGrid.png</file>
+  </qresource>
+</RCC>
