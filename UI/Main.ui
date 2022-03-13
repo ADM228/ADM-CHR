@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>681</width>
+    <height>383</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -24,13 +24,22 @@
     <normaloff>:/Png/icon.ico</normaloff>:/Png/icon.ico</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout">
-    <item>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <layout class="QGridLayout" name="gridLayout_2">
+    <item row="0" column="0">
      <layout class="QVBoxLayout" name="verticalLayout">
+      <property name="spacing">
+       <number>6</number>
+      </property>
       <item>
        <widget class="QFrame" name="frame">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
@@ -43,12 +52,15 @@
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_5">
          <item>
-          <widget class="QWidget" name="GLPicture" native="true">
+          <widget class="QGraphicsView" name="graphicsPicture">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-             <horstretch>1</horstretch>
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Plain</enum>
            </property>
           </widget>
          </item>
@@ -71,10 +83,17 @@
             </widget>
            </item>
            <item row="1" column="2">
-            <widget class="QComboBox" name="comboBox_4"/>
+            <widget class="QComboBox" name="comboBox_4">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+            </widget>
            </item>
-           <item row="1" column="1">
-            <widget class="QPushButton" name="buttonFormatInfo">
+           <item row="0" column="3">
+            <widget class="QLabel" name="labelMirror">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -82,15 +101,12 @@
               </sizepolicy>
              </property>
              <property name="text">
-              <string>buttonFormatinfo</string>
+              <string>labelMirror</string>
              </property>
             </widget>
            </item>
            <item row="1" column="0">
             <widget class="QComboBox" name="comboBox_3"/>
-           </item>
-           <item row="1" column="3">
-            <widget class="QComboBox" name="comboBox_5"/>
            </item>
            <item row="0" column="2">
             <widget class="QLabel" name="labelRotate">
@@ -105,8 +121,18 @@
              </property>
             </widget>
            </item>
-           <item row="0" column="3">
-            <widget class="QLabel" name="labelMirror">
+           <item row="1" column="3">
+            <widget class="QComboBox" name="comboBox_5">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QPushButton" name="buttonFormatInfo">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -114,7 +140,7 @@
               </sizepolicy>
              </property>
              <property name="text">
-              <string>labelMirror</string>
+              <string>buttonFormatinfo</string>
              </property>
             </widget>
            </item>
@@ -181,8 +207,11 @@
       </item>
      </layout>
     </item>
-    <item>
+    <item row="0" column="1">
      <layout class="QVBoxLayout" name="verticalLayout_4">
+      <property name="spacing">
+       <number>6</number>
+      </property>
       <property name="leftMargin">
        <number>0</number>
       </property>
@@ -192,13 +221,49 @@
          <number>0</number>
         </property>
         <item>
-         <widget class="QWidget" name="GLEditor" native="true">
+         <widget class="QFrame" name="frame_2">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-            <horstretch>1</horstretch>
+           <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+            <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="frameShape">
+           <enum>QFrame::NoFrame</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Plain</enum>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_4">
+           <property name="spacing">
+            <number>6</number>
+           </property>
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QGraphicsView" name="graphicsEditor">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Plain</enum>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </item>
        </layout>
@@ -212,7 +277,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>681</width>
      <height>22</height>
     </rect>
    </property>

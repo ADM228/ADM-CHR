@@ -1,20 +1,24 @@
-from PyQt5 import QtWidgets, uic, QtGui
-import sys, os, json, configparser
+from PyQt5 import QtWidgets, uic, QtGui, QtCore
+import sys, os, json, configparser, time
 import Resources
 
 class MainWindow(QtWidgets.QMainWindow):
+    resized = QtCore.pyqtSignal()
     def __init__(self):
         super().__init__()
-        self.version="1.0.0α"
+        self.version="1.1.0α"
         self.ui = uic.loadUi("UI/Main.ui")
         self.ui.setWindowTitle("PY-CHR v"+self.version)
         self.parseSettings()
         self.localize()
-        print(type(self.ui.GLPicture))
-        self.ui.GLPicture = QSquareOpenGLWidget()
-        self.ui.GLEditor = QSquareOpenGLWidget()
-        print(type(self.ui.GLPicture))
         self.ui.show()
+        self.resizeGraphics()
+        self.resized.connect(self.resizeGraphics)
+        print(self.ui.graphicsPicture.width(), self.ui.graphicsPicture.height(), self.ui.graphicsPicture.sizePolicy().horizontalPolicy(),  self.ui.graphicsPicture.sizePolicy().verticalPolicy())
+        print(self.ui.graphicsEditor.width(), self.ui.graphicsEditor.height(), self.ui.graphicsEditor.sizePolicy().horizontalPolicy(),  self.ui.graphicsEditor.sizePolicy().verticalPolicy())
+    def resizeEvent(self, event):
+        self.resized.emit()
+        return super(MainWindow, self).resizeEvent(event)
     def localize(self):
         self.locale = configparser.ConfigParser()
         self.locale.optionxform = str #making it case-insensitive
@@ -45,7 +49,28 @@ class MainWindow(QtWidgets.QMainWindow):
     def buttonClickAbout(self):
         windows.append(AboutWindow(self, len(windows)))
         print(windows)
-    
+
+    def resizeGraphics(self):
+        print("Resizing Graphics")
+        print(self.ui.graphicsPicture.width(), self.ui.graphicsPicture.height(), self.ui.graphicsPicture.sizePolicy().horizontalPolicy(),  self.ui.graphicsPicture.sizePolicy().verticalPolicy())
+
+        if self.ui.graphicsPicture.width() >= self.ui.graphicsPicture.height():
+            self.ui.graphicsPicture.setFixedWidth(self.ui.graphicsPicture.height())
+            self.ui.graphicsPicture.setSizePolicy(0, 0)
+        else: 
+            self.ui.graphicsPicture.setFixedHeight(self.ui.graphicsPicture.width())
+            self.ui.graphicsPicture.setSizePolicy(0, 5)
+        print(self.ui.graphicsPicture.width(), self.ui.graphicsPicture.height(), self.ui.graphicsPicture.sizePolicy().horizontalPolicy(),  self.ui.graphicsPicture.sizePolicy().verticalPolicy())
+
+        print(self.ui.graphicsEditor.width(), self.ui.graphicsEditor.height(), self.ui.graphicsEditor.sizePolicy().horizontalPolicy(),  self.ui.graphicsEditor.sizePolicy().verticalPolicy())
+        if self.ui.graphicsEditor.width() >= self.ui.graphicsEditor.height():
+            self.ui.graphicsEditor.setFixedWidth(self.ui.graphicsEditor.height())
+            self.ui.graphicsEditor.setSizePolicy(5, 0)
+        else: 
+            self.ui.graphicsEditor.setFixedHeight(self.ui.graphicsEditor.width())
+            self.ui.graphicsEditor.setSizePolicy(0, 0)
+        print(self.ui.graphicsEditor.width(), self.ui.graphicsEditor.height(), self.ui.graphicsEditor.sizePolicy().horizontalPolicy(),  self.ui.graphicsEditor.sizePolicy().verticalPolicy())
+
 class AboutWindow(QtWidgets.QDialog):
     def __init__(self, main, index):
         super().__init__()
@@ -58,20 +83,7 @@ class AboutWindow(QtWidgets.QDialog):
         self.index = index
         print(self.index)
 
-class QSquareOpenGLWidget(QtWidgets.QOpenGLWidget):
-    def __init__(self):
-        super().__init__()
-    
-    def heightForWidth(self, w):
-        return w
-
-
-    def closeEvent(self, event):
-        del windows[self.index]
-        event.accept()
-
-
-
+flag = [1]
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
     windows = [MainWindow()]
