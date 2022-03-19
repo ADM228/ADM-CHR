@@ -1,12 +1,12 @@
 from PyQt5 import QtWidgets, uic, QtGui, QtCore
-import sys, os, json, configparser, time
+import sys, os, json, configparser, time 
 import Resources
 
 class MainWindow(QtWidgets.QMainWindow):
     resized = QtCore.pyqtSignal()
     def __init__(self):
         super().__init__()
-        self.version="1.1.0α"
+        self.version="1.2.0α"
         self.ui = uic.loadUi("UI/Main.ui")
         self.ui.setWindowTitle("PY-CHR v"+self.version)
         self.parseSettings()
@@ -14,11 +14,11 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.show()
         self.resizeGraphics()
         self.resized.connect(self.resizeGraphics)
-        print(self.ui.graphicsPicture.width(), self.ui.graphicsPicture.height(), self.ui.graphicsPicture.sizePolicy().horizontalPolicy(),  self.ui.graphicsPicture.sizePolicy().verticalPolicy())
-        print(self.ui.graphicsEditor.width(), self.ui.graphicsEditor.height(), self.ui.graphicsEditor.sizePolicy().horizontalPolicy(),  self.ui.graphicsEditor.sizePolicy().verticalPolicy())
+        self.graphicsTest()
     def resizeEvent(self, event):
-        self.resized.emit()
-        return super(MainWindow, self).resizeEvent(event)
+        super(MainWindow, self).resizeEvent(event)
+        print ("ResizeEvent triggered")
+        self.resizeGraphics()
     def localize(self):
         self.locale = configparser.ConfigParser()
         self.locale.optionxform = str #making it case-insensitive
@@ -52,24 +52,24 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def resizeGraphics(self):
         print("Resizing Graphics")
-        print(self.ui.graphicsPicture.width(), self.ui.graphicsPicture.height(), self.ui.graphicsPicture.sizePolicy().horizontalPolicy(),  self.ui.graphicsPicture.sizePolicy().verticalPolicy())
 
-        if self.ui.graphicsPicture.width() >= self.ui.graphicsPicture.height():
-            self.ui.graphicsPicture.setFixedWidth(self.ui.graphicsPicture.height())
-            self.ui.graphicsPicture.setSizePolicy(0, 0)
-        else: 
-            self.ui.graphicsPicture.setFixedHeight(self.ui.graphicsPicture.width())
-            self.ui.graphicsPicture.setSizePolicy(0, 5)
-        print(self.ui.graphicsPicture.width(), self.ui.graphicsPicture.height(), self.ui.graphicsPicture.sizePolicy().horizontalPolicy(),  self.ui.graphicsPicture.sizePolicy().verticalPolicy())
+        if self.ui.pictureGL.width() < self.ui.pictureGL.height():
+            self.ui.pictureGL.setFixedWidth(self.ui.pictureGL.height())
+            self.ui.pictureGL.setFixedHeight(self.ui.pictureGL.width())
+        elif self.ui.pictureGL.width() >  self.ui.pictureGL.height(): 
+            self.ui.pictureGL.setFixedHeight(self.ui.pictureGL.width())
+            self.ui.pictureGL.setFixedWidth(self.ui.pictureGL.height())
+        self.ui.pictureGL.setSizePolicy(0, 0)
 
-        print(self.ui.graphicsEditor.width(), self.ui.graphicsEditor.height(), self.ui.graphicsEditor.sizePolicy().horizontalPolicy(),  self.ui.graphicsEditor.sizePolicy().verticalPolicy())
-        if self.ui.graphicsEditor.width() >= self.ui.graphicsEditor.height():
-            self.ui.graphicsEditor.setFixedWidth(self.ui.graphicsEditor.height())
-            self.ui.graphicsEditor.setSizePolicy(5, 0)
-        else: 
-            self.ui.graphicsEditor.setFixedHeight(self.ui.graphicsEditor.width())
-            self.ui.graphicsEditor.setSizePolicy(0, 0)
-        print(self.ui.graphicsEditor.width(), self.ui.graphicsEditor.height(), self.ui.graphicsEditor.sizePolicy().horizontalPolicy(),  self.ui.graphicsEditor.sizePolicy().verticalPolicy())
+        if self.ui.editorGL.width() < self.ui.editorGL.height():
+            self.ui.editorGL.setFixedWidth(self.ui.editorGL.height())
+            self.ui.editorGL.setFixedHeight(self.ui.editorGL.width())
+        elif self.ui.editorGL.width() >  self.ui.editorGL.height(): 
+            self.ui.editorGL.setFixedHeight(self.ui.editorGL.width())
+            self.ui.editorGL.setFixedWidth(self.ui.editorGL.height())
+        self.ui.editorGL.setSizePolicy(0, 0)
+    def graphicsTest(self): 
+        pass
 
 class AboutWindow(QtWidgets.QDialog):
     def __init__(self, main, index):
