@@ -56,38 +56,43 @@ class MainWindow(QtWidgets.QMainWindow):
         print(self.ui.graphicsPicture.width(), self.ui.graphicsPicture.height(), self.ui.graphicsPicture.sizePolicy().horizontalPolicy(),  self.ui.graphicsPicture.sizePolicy().verticalPolicy())
 
         if self.ui.graphicsPicture.width() >= self.ui.graphicsPicture.height():
-            self.ui.graphicsPicture.setFixedWidth(self.ui.graphicsPicture.height())
             self.ui.graphicsPicture.setFixedHeight(self.ui.graphicsPicture.width())
+            self.ui.graphicsPicture.setFixedWidth(self.ui.graphicsPicture.height())
             self.ui.graphicsPicture.setSizePolicy(0, 0)
         else: 
-            self.ui.graphicsPicture.setFixedHeight(self.ui.graphicsPicture.width())
             self.ui.graphicsPicture.setFixedWidth(self.ui.graphicsPicture.height())
+            self.ui.graphicsPicture.setFixedHeight(self.ui.graphicsPicture.width())
             self.ui.graphicsPicture.setSizePolicy(0, 0)
         print(self.ui.graphicsPicture.width(), self.ui.graphicsPicture.height(), self.ui.graphicsPicture.sizePolicy().horizontalPolicy(),  self.ui.graphicsPicture.sizePolicy().verticalPolicy())
 
         print(self.ui.graphicsEditor.width(), self.ui.graphicsEditor.height(), self.ui.graphicsEditor.sizePolicy().horizontalPolicy(),  self.ui.graphicsEditor.sizePolicy().verticalPolicy())
         if self.ui.graphicsEditor.width() >= self.ui.graphicsEditor.height():
-            self.ui.graphicsEditor.setFixedWidth(self.ui.graphicsEditor.height())
             self.ui.graphicsEditor.setFixedHeight(self.ui.graphicsEditor.width())
+            self.ui.graphicsEditor.setFixedWidth(self.ui.graphicsEditor.height())
             self.ui.graphicsEditor.setSizePolicy(0, 0)
         else: 
-            self.ui.graphicsEditor.setFixedHeight(self.ui.graphicsEditor.width())
             self.ui.graphicsEditor.setFixedWidth(self.ui.graphicsEditor.height())
+            self.ui.graphicsEditor.setFixedHeight(self.ui.graphicsEditor.width())
             self.ui.graphicsEditor.setSizePolicy(0, 0)
         print(self.ui.graphicsEditor.width(), self.ui.graphicsEditor.height(), self.ui.graphicsEditor.sizePolicy().horizontalPolicy(),  self.ui.graphicsEditor.sizePolicy().verticalPolicy())
     def graphicsTest(self):
         gp = self.ui.graphicsPicture
         ge = self.ui.graphicsEditor
         gpsize = gp.width() - gp.width()%128
+        gpscale = gpsize / 128
         gpscene = QtWidgets.QGraphicsScene(0,0, gpsize, gpsize*4)
         print (gpsize)
 
-        brush = QtGui.QBrush(QtGui.QColor(0,0,0,255))
+        brushes = [QtGui.QBrush(QtGui.QColor(0,0,0,255)), QtGui.QBrush(QtGui.QColor(255,0,0,255))]
         pen = QtGui.QPen(QtGui.QColor(255,0,0,0))
-        gpscene.addRect(0,0,100,100,pen,brush)
+        for x in range (0, 128):
+            for y in range (0, 128):
+                gpscene.addRect(x*gpscale,y*gpscale,gpscale,gpscale,pen,brushes[(x+y)%2])
+                # gpscene.addRect(x,y,1,1,pen,brushes[(x+y)%2])
 
         gp.setScene(gpscene)
         gp.fitInView(0,0, gpsize, gpsize)
+        # gp.fitInView(0,0, 128, 128)
 
 class AboutWindow(QtWidgets.QDialog):
     def __init__(self, main, index):
