@@ -159,7 +159,7 @@
             <enum>Qt::ScrollBarAlwaysOff</enum>
            </property>
            <property name="renderHints">
-            <set>QPainter::SmoothPixmapTransform</set>
+            <set>QPainter::HighQualityAntialiasing</set>
            </property>
 >>>>>>> Back to QGraphics view
           </widget>
