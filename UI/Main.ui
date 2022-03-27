@@ -6,20 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-<<<<<<< HEAD
-    <width>594</width>
-    <height>275</height>
-=======
     <width>681</width>
     <height>412</height>
-<<<<<<< HEAD
->>>>>>> Back to QGraphics view
-=======
->>>>>>> 22a1140ac46655fbe3a315e0d0004f2ebbe6e5d0
    </rect>
   </property>
   <property name="sizePolicy">
-   <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
+   <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
@@ -28,25 +20,8 @@
    <string>MainWindow</string>
   </property>
   <property name="windowIcon">
-<<<<<<< HEAD
-<<<<<<< HEAD
-   <iconset resource="Resources.qrc">
-    <normaloff>:/Everything/icon.ico</normaloff>:/Everything/icon.ico</iconset>
-  </property>
-  <property name="iconSize">
-   <size>
-    <width>128</width>
-    <height>128</height>
-   </size>
-  </property>
-  <property name="tabShape">
-   <enum>QTabWidget::Rounded</enum>
-=======
-=======
->>>>>>> 22a1140ac46655fbe3a315e0d0004f2ebbe6e5d0
    <iconset>
     <normaloff>:/Png/icon.ico</normaloff>:/Png/icon.ico</iconset>
->>>>>>> Back to QGraphics view
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="sizePolicy">
@@ -56,75 +31,6 @@
     </sizepolicy>
    </property>
    <layout class="QGridLayout" name="gridLayout_2">
-    <item row="0" column="1">
-     <layout class="QVBoxLayout" name="verticalLayout_4">
-      <property name="spacing">
-       <number>6</number>
-      </property>
-      <property name="leftMargin">
-       <number>0</number>
-      </property>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
-        <property name="leftMargin">
-         <number>0</number>
-        </property>
-        <item>
-         <widget class="QFrame" name="frame_2">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Plain</enum>
-          </property>
-          <property name="lineWidth">
-           <number>0</number>
-          </property>
-          <property name="midLineWidth">
-           <number>0</number>
-          </property>
-          <layout class="QHBoxLayout" name="horizontalLayout_4">
-           <property name="spacing">
-            <number>6</number>
-           </property>
-           <property name="sizeConstraint">
-            <enum>QLayout::SetMinimumSize</enum>
-           </property>
-           <property name="leftMargin">
-            <number>6</number>
-           </property>
-           <property name="topMargin">
-            <number>6</number>
-           </property>
-           <property name="rightMargin">
-            <number>6</number>
-           </property>
-           <property name="bottomMargin">
-            <number>6</number>
-           </property>
-           <item>
-            <widget class="QOpenGLWidget" name="editorGL">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </item>
     <item row="0" column="0">
      <layout class="QVBoxLayout" name="verticalLayout">
       <property name="spacing">
@@ -146,15 +52,13 @@
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_5">
          <item>
-          <widget class="QOpenGLWidget" name="pictureGL">
+          <widget class="QGraphicsView" name="graphicsPicture">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
-<<<<<<< HEAD
-=======
            <property name="frameShadow">
             <enum>QFrame::Plain</enum>
            </property>
@@ -167,10 +71,6 @@
            <property name="renderHints">
             <set>QPainter::HighQualityAntialiasing</set>
            </property>
-<<<<<<< HEAD
->>>>>>> Back to QGraphics view
-=======
->>>>>>> 22a1140ac46655fbe3a315e0d0004f2ebbe6e5d0
           </widget>
          </item>
          <item>
@@ -258,8 +158,6 @@
         </layout>
        </widget>
       </item>
-<<<<<<< HEAD
-=======
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <property name="bottomMargin">
@@ -316,64 +214,21 @@
         </item>
        </layout>
       </item>
->>>>>>> Back to QGraphics view
      </layout>
     </item>
-    <item row="1" column="0">
-     <layout class="QHBoxLayout" name="horizontalLayout_3">
-      <property name="bottomMargin">
+    <item row="0" column="1">
+     <layout class="QVBoxLayout" name="verticalLayout_4">
+      <property name="spacing">
+       <number>6</number>
+      </property>
+      <property name="leftMargin">
        <number>0</number>
       </property>
       <item>
-       <widget class="QComboBox" name="comboZoom"/>
-      </item>
-      <item>
-       <widget class="QComboBox" name="comboGridType"/>
-      </item>
-      <item>
-       <widget class="QPushButton" name="buttonPictureGrid">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <property name="leftMargin">
+         <number>0</number>
         </property>
-<<<<<<< HEAD
-        <property name="text">
-         <string/>
-        </property>
-        <property name="icon">
-         <iconset resource="Resources.qrc">
-          <normaloff>:/Everything/PictureGrid.png</normaloff>:/Everything/PictureGrid.png</iconset>
-        </property>
-        <property name="checkable">
-         <bool>true</bool>
-        </property>
-        <property name="flat">
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="buttonEditorGrid">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="icon">
-         <iconset resource="Resources.qrc">
-          <normaloff>:/Everything/EditorGrid.png</normaloff>:/Everything/EditorGrid.png</iconset>
-        </property>
-        <property name="checkable">
-         <bool>true</bool>
-        </property>
-       </widget>
-=======
         <item>
          <widget class="QFrame" name="frame_2">
           <property name="sizePolicy">
@@ -430,7 +285,6 @@
          </widget>
         </item>
        </layout>
->>>>>>> Back to QGraphics view
       </item>
      </layout>
     </item>
@@ -441,7 +295,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>594</width>
+     <width>681</width>
      <height>22</height>
     </rect>
    </property>

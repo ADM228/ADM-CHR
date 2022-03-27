@@ -6,7 +6,7 @@ class MainWindow(QtWidgets.QMainWindow):
     resized = QtCore.pyqtSignal()
     def __init__(self):
         super().__init__()
-        self.version="1.2.0α"
+        self.version="1.3.0α"
         self.ui = uic.loadUi("UI/Main.ui")
         self.ui.setWindowTitle("PY-CHR v"+self.version)
         self.parseSettings()
@@ -14,14 +14,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.show()
         self.resizeGraphics()
         self.resized.connect(self.resizeGraphics)
-<<<<<<< HEAD
-=======
         print(self.ui.graphicsPicture.width(), self.ui.graphicsPicture.height(), self.ui.graphicsPicture.sizePolicy().horizontalPolicy(),  self.ui.graphicsPicture.sizePolicy().verticalPolicy())
         print(self.ui.graphicsEditor.width(), self.ui.graphicsEditor.height(), self.ui.graphicsEditor.sizePolicy().horizontalPolicy(),  self.ui.graphicsEditor.sizePolicy().verticalPolicy())
-<<<<<<< HEAD
->>>>>>> Back to QGraphics view
-=======
->>>>>>> 22a1140ac46655fbe3a315e0d0004f2ebbe6e5d0
         self.graphicsTest()
     def resizeEvent(self, event):
         super(MainWindow, self).resizeEvent(event)
@@ -60,26 +54,6 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def resizeGraphics(self):
         print("Resizing Graphics")
-
-<<<<<<< HEAD
-        if self.ui.pictureGL.width() < self.ui.pictureGL.height():
-            self.ui.pictureGL.setFixedWidth(self.ui.pictureGL.height())
-            self.ui.pictureGL.setFixedHeight(self.ui.pictureGL.width())
-        elif self.ui.pictureGL.width() >  self.ui.pictureGL.height(): 
-            self.ui.pictureGL.setFixedHeight(self.ui.pictureGL.width())
-            self.ui.pictureGL.setFixedWidth(self.ui.pictureGL.height())
-        self.ui.pictureGL.setSizePolicy(0, 0)
-
-        if self.ui.editorGL.width() < self.ui.editorGL.height():
-            self.ui.editorGL.setFixedWidth(self.ui.editorGL.height())
-            self.ui.editorGL.setFixedHeight(self.ui.editorGL.width())
-        elif self.ui.editorGL.width() >  self.ui.editorGL.height(): 
-            self.ui.editorGL.setFixedHeight(self.ui.editorGL.width())
-            self.ui.editorGL.setFixedWidth(self.ui.editorGL.height())
-        self.ui.editorGL.setSizePolicy(0, 0)
-    def graphicsTest(self): 
-        pass
-=======
         if self.ui.graphicsPicture.width() >= self.ui.graphicsPicture.height():
             self.ui.graphicsPicture.setFixedHeight(self.ui.graphicsPicture.width())
             self.ui.graphicsPicture.setFixedWidth(self.ui.graphicsPicture.height())
@@ -117,15 +91,10 @@ class MainWindow(QtWidgets.QMainWindow):
 
         gp.setScene(gpscene)
         gp.fitInView(0,0, gpsize, gpsize)
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> Back to QGraphics view
-=======
+
         # gp.fitInView(0,0, 128, 128)
->>>>>>> A working graphics test
-=======
+
         # gp.fitInView(0,0, 128, 128)
->>>>>>> 22a1140ac46655fbe3a315e0d0004f2ebbe6e5d0
 
 class AboutWindow(QtWidgets.QDialog):
     def __init__(self, main, index):
