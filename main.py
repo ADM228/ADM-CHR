@@ -4,23 +4,25 @@ import Resources
 
 class MainWindow(QtWidgets.QMainWindow):
     resized = QtCore.pyqtSignal()
-    def __init__(self):
-        super().__init__()
+    def __init__(self, parent=None):
+        super(MainWindow, self).__init__(parent=parent)
         self.version="1.3.0α"
         self.ui = uic.loadUi("UI/Main.ui")
         self.ui.setWindowTitle("PY-CHR v"+self.version)
         self.parseSettings()
         self.localize()
         self.ui.show()
+        self.ui.centralwidget.resizeEvent = self.resizeEvent
         self.resizeGraphics()
         self.resized.connect(self.resizeGraphics)
         print(self.ui.graphicsPicture.width(), self.ui.graphicsPicture.height(), self.ui.graphicsPicture.sizePolicy().horizontalPolicy(),  self.ui.graphicsPicture.sizePolicy().verticalPolicy())
         print(self.ui.graphicsEditor.width(), self.ui.graphicsEditor.height(), self.ui.graphicsEditor.sizePolicy().horizontalPolicy(),  self.ui.graphicsEditor.sizePolicy().verticalPolicy())
         self.graphicsTest()
     def resizeEvent(self, event):
-        super(MainWindow, self).resizeEvent(event)
         print ("ResizeEvent triggered")
         self.resizeGraphics()
+        self.resized.emit()
+        return super(MainWindow, self).resizeEvent(event)
     def localize(self):
         self.locale = configparser.ConfigParser()
         self.locale.optionxform = str #making it case-insensitive
