@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>681</width>
-    <height>383</height>
+    <height>412</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -20,7 +20,7 @@
    <string>MainWindow</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="Resources.qrc">
+   <iconset>
     <normaloff>:/Png/icon.ico</normaloff>:/Png/icon.ico</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -61,6 +61,15 @@
            </property>
            <property name="frameShadow">
             <enum>QFrame::Plain</enum>
+           </property>
+           <property name="verticalScrollBarPolicy">
+            <enum>Qt::ScrollBarAlwaysOn</enum>
+           </property>
+           <property name="horizontalScrollBarPolicy">
+            <enum>Qt::ScrollBarAlwaysOff</enum>
+           </property>
+           <property name="renderHints">
+            <set>QPainter::SmoothPixmapTransform</set>
            </property>
           </widget>
          </item>
@@ -172,7 +181,7 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset resource="Resources.qrc">
+           <iconset>
             <normaloff>:/Png/PictureGrid.png</normaloff>:/Png/PictureGrid.png</iconset>
           </property>
           <property name="checkable">
@@ -195,7 +204,7 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset resource="Resources.qrc">
+           <iconset>
             <normaloff>:/Png/EditorGrid.png</normaloff>:/Png/EditorGrid.png</iconset>
           </property>
           <property name="checkable">
@@ -260,6 +269,15 @@
              </property>
              <property name="frameShadow">
               <enum>QFrame::Plain</enum>
+             </property>
+             <property name="verticalScrollBarPolicy">
+              <enum>Qt::ScrollBarAlwaysOff</enum>
+             </property>
+             <property name="horizontalScrollBarPolicy">
+              <enum>Qt::ScrollBarAlwaysOff</enum>
+             </property>
+             <property name="renderHints">
+              <set>QPainter::Antialiasing|QPainter::HighQualityAntialiasing|QPainter::SmoothPixmapTransform|QPainter::TextAntialiasing</set>
              </property>
             </widget>
            </item>
