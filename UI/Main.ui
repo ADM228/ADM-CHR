@@ -12,7 +12,10 @@
 =======
     <width>681</width>
     <height>412</height>
+<<<<<<< HEAD
 >>>>>>> Back to QGraphics view
+=======
+>>>>>>> 22a1140ac46655fbe3a315e0d0004f2ebbe6e5d0
    </rect>
   </property>
   <property name="sizePolicy">
@@ -26,6 +29,7 @@
   </property>
   <property name="windowIcon">
 <<<<<<< HEAD
+<<<<<<< HEAD
    <iconset resource="Resources.qrc">
     <normaloff>:/Everything/icon.ico</normaloff>:/Everything/icon.ico</iconset>
   </property>
@@ -38,6 +42,8 @@
   <property name="tabShape">
    <enum>QTabWidget::Rounded</enum>
 =======
+=======
+>>>>>>> 22a1140ac46655fbe3a315e0d0004f2ebbe6e5d0
    <iconset>
     <normaloff>:/Png/icon.ico</normaloff>:/Png/icon.ico</iconset>
 >>>>>>> Back to QGraphics view
@@ -161,7 +167,10 @@
            <property name="renderHints">
             <set>QPainter::HighQualityAntialiasing</set>
            </property>
+<<<<<<< HEAD
 >>>>>>> Back to QGraphics view
+=======
+>>>>>>> 22a1140ac46655fbe3a315e0d0004f2ebbe6e5d0
           </widget>
          </item>
          <item>
