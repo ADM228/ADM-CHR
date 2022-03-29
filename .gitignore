@@ -129,7 +129,4 @@ dmypy.json
 .pyre/
 
 pychr.cfg
-UI/icon.ico
-UI/EditorGrid.png
-UI/PictureGrid.png
 test.py

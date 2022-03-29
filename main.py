@@ -1,18 +1,17 @@
 from PyQt5 import QtWidgets, uic, QtGui, QtCore
-import sys, os, json, configparser, time 
-import Resources
+import sys, os, json, configparser, time, Resources, ui
 
 class MainWindow(QtWidgets.QMainWindow):
     resized = QtCore.pyqtSignal()
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent=parent)
         self.version="1.3.0α"
-        self.ui = uic.loadUi("UI/Main.ui")
-        self.ui.setWindowTitle("PY-CHR v"+self.version)
+        self.ui = ui.Ui_MainWindow()
+        self.ui.setupUi(self)
+        self.setWindowTitle("PY-CHR v"+self.version)
         self.parseSettings()
         self.localize()
-        self.ui.show()
-        self.ui.centralwidget.resizeEvent = self.resizeEvent
+        self.show()
         self.resizeGraphics()
         self.resized.connect(self.resizeGraphics)
         print(self.ui.graphicsPicture.width(), self.ui.graphicsPicture.height(), self.ui.graphicsPicture.sizePolicy().horizontalPolicy(),  self.ui.graphicsPicture.sizePolicy().verticalPolicy())
