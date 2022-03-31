@@ -1,26 +1,24 @@
 from PyQt5 import QtWidgets, uic, QtGui, QtCore
-import sys, os, json, configparser, time, Resources, ui
+import sys, os, json, configparser, time, Resources
+from ui import Ui_MainWindow
 
 class MainWindow(QtWidgets.QMainWindow):
-    resized = QtCore.pyqtSignal()
-    def __init__(self, parent=None):
-        super(MainWindow, self).__init__(parent=parent)
-        self.version="1.3.0α"
-        self.ui = ui.Ui_MainWindow()
-        self.ui.setupUi(self)
-        self.setWindowTitle("PY-CHR v"+self.version)
-        self.parseSettings()
-        self.localize()
-        self.show()
-        self.resizeGraphics()
-        self.resized.connect(self.resizeGraphics)
-        print(self.ui.graphicsPicture.width(), self.ui.graphicsPicture.height(), self.ui.graphicsPicture.sizePolicy().horizontalPolicy(),  self.ui.graphicsPicture.sizePolicy().verticalPolicy())
-        print(self.ui.graphicsEditor.width(), self.ui.graphicsEditor.height(), self.ui.graphicsEditor.sizePolicy().horizontalPolicy(),  self.ui.graphicsEditor.sizePolicy().verticalPolicy())
-        self.graphicsTest()
+    def __init__(self):
+        super(MainWindow, self).__init__()
+        #self.version="1.3.0α"
+        #self.ui = Ui_MainWindow()
+        #self.ui.setupUi(self)
+        #self.setWindowTitle("PY-CHR v"+self.version)
+        #self.parseSettings()
+        #self.localize()
+        #print(self.ui.graphicsPicture.width(), self.ui.graphicsPicture.height(), self.ui.graphicsPicture.sizePolicy().horizontalPolicy(),  self.ui.graphicsPicture.sizePolicy().verticalPolicy())
+        #print(self.ui.graphicsEditor.width(), self.ui.graphicsEditor.height(), self.ui.graphicsEditor.sizePolicy().horizontalPolicy(),  self.ui.graphicsEditor.sizePolicy().verticalPolicy())
+        #self.graphicsTest()
+        #self.show()
+
     def resizeEvent(self, event):
         print ("ResizeEvent triggered")
-        self.resizeGraphics()
-        self.resized.emit()
+        #self.resizeGraphics()
         return super(MainWindow, self).resizeEvent(event)
     def localize(self):
         self.locale = configparser.ConfigParser()
@@ -91,7 +89,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 # gpscene.addRect(x,y,1,1,pen,brushes[(x+y)%2])
 
         gp.setScene(gpscene)
-        gp.fitInView(0,0, gpsize, gpsize)
+        #gp.fitInView(0,0, gpsize, gpsize)
 
         # gp.fitInView(0,0, 128, 128)
 
@@ -113,4 +111,9 @@ flag = [1]
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
     windows = [MainWindow()]
-    sys.exit(app.exec_())
+    ui = Ui_MainWindow()
+    ui.setupUi(windows[0])
+    windows[0].show()
+    #sys.exit(app.exec_())
+    time.sleep(5)
+    sys.exit()
