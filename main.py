@@ -1,4 +1,4 @@
-version = "1.4.1α"
+version = "1.4.2α"
 
 from PyQt5 import QtWidgets, uic, QtGui, QtCore
 import sys, os, json, configparser, time, Resources
@@ -53,30 +53,23 @@ class MainWindow(QtWidgets.QMainWindow):
         if self.counter[0] > 0:
             self.counter[0] -= 1
             return
-
         if self.ui.frame_3.width() < self.ui.frame_3.height():
-            self.ui.graphicsPicture.setFixedHeight(self.ui.frame_3.width()-10)
-            self.ui.graphicsPicture.setFixedWidth(self.ui.graphicsPicture.height())
-            self.ui.graphicsPicture.setSizePolicy(0, 0)
+            diff = int((self.ui.frame_3.height() - self.ui.frame_3.width())/2)
+            self.ui.frame_3.setContentsMargins(0,diff,0,diff)
         elif self.ui.frame_3.width() > self.ui.frame_3.height(): 
-            self.ui.graphicsPicture.setFixedWidth(self.ui.frame_3.height()-10)
-            self.ui.graphicsPicture.setFixedHeight(self.ui.graphicsPicture.width())
-            self.ui.graphicsPicture.setSizePolicy(0, 0)
+            diff = int((self.ui.frame_3.width() - self.ui.frame_3.height())/2)
+            self.ui.frame_3.setContentsMargins(diff,0,diff,0)
         else:
-            self.ui.graphicsPicture.setFixedWidth(self.ui.frame_3.width()-10)
-            self.ui.graphicsPicture.setFixedWidth(self.ui.frame_3.height()-10)
+            self.ui.frame_3.setContentsMargins(0,0,0,0)
 
         if self.ui.frame_2.width() < self.ui.frame_2.height():
-            self.ui.graphicsEditor.setFixedHeight(self.ui.frame_2.width()-10)
-            self.ui.graphicsEditor.setFixedWidth(self.ui.graphicsEditor.height())
-            self.ui.graphicsEditor.setSizePolicy(0, 0)
+            diff = int((self.ui.frame_2.height() - self.ui.frame_2.width())/2)
+            self.ui.frame_2.setContentsMargins(0,diff,0,diff)
         elif self.ui.frame_2.width() > self.ui.frame_2.height(): 
-            self.ui.graphicsEditor.setFixedWidth(self.ui.frame_2.height()-10)
-            self.ui.graphicsEditor.setFixedHeight(self.ui.graphicsEditor.width())
-            self.ui.graphicsEditor.setSizePolicy(0, 0)
+            diff = int((self.ui.frame_2.width() - self.ui.frame_2.height())/2)
+            self.ui.frame_2.setContentsMargins(diff,0,diff,0)
         else:
-            self.ui.graphicsEditor.setFixedWidth(self.ui.frame_2.width()-10)
-            self.ui.graphicsEditor.setFixedWidth(self.ui.frame_2.height()-10)
+            self.ui.frame_2.setContentsMargins(0,0,0,0)
     def graphicsTest(self):
         gp = self.ui.graphicsPicture
         ge = self.ui.graphicsEditor
