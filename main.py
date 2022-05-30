@@ -1,3 +1,5 @@
+version = "1.4.1α"
+
 from PyQt5 import QtWidgets, uic, QtGui, QtCore
 import sys, os, json, configparser, time, Resources
 from ui import Ui_MainWindow
@@ -5,20 +7,16 @@ from ui import Ui_MainWindow
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
-        #self.version="1.3.0α"
-        #self.ui = Ui_MainWindow()
-        #self.ui.setupUi(self)
-        #self.setWindowTitle("PY-CHR v"+self.version)
-        #self.parseSettings()
-        #self.localize()
-        #print(self.ui.graphicsPicture.width(), self.ui.graphicsPicture.height(), self.ui.graphicsPicture.sizePolicy().horizontalPolicy(),  self.ui.graphicsPicture.sizePolicy().verticalPolicy())
-        #print(self.ui.graphicsEditor.width(), self.ui.graphicsEditor.height(), self.ui.graphicsEditor.sizePolicy().horizontalPolicy(),  self.ui.graphicsEditor.sizePolicy().verticalPolicy())
-        #self.graphicsTest()
-        #self.show()
-
+        self.counter = [2]
+        self.ui = uic.loadUi("UI/Main.ui")
+        self.ui.setWindowTitle("PY-CHR v"+version)
+        self.parseSettings()
+        self.localize()
+        self.ui.centralwidget.resizeEvent = self.resizeEvent
+        self.ui.show()
+        self.resizeGraphics()
     def resizeEvent(self, event):
-        print ("ResizeEvent triggered")
-        #self.resizeGraphics()
+        self.resizeGraphics()
         return super(MainWindow, self).resizeEvent(event)
     def localize(self):
         self.locale = configparser.ConfigParser()
@@ -52,27 +50,33 @@ class MainWindow(QtWidgets.QMainWindow):
         print(windows)
 
     def resizeGraphics(self):
-        print("Resizing Graphics")
-        if self.ui.graphicsPicture.width() >= self.ui.graphicsPicture.height():
-            self.ui.graphicsPicture.setFixedHeight(self.ui.graphicsPicture.width())
-            self.ui.graphicsPicture.setFixedWidth(self.ui.graphicsPicture.height())
-            self.ui.graphicsPicture.setSizePolicy(0, 0)
-        else: 
-            self.ui.graphicsPicture.setFixedWidth(self.ui.graphicsPicture.height())
-            self.ui.graphicsPicture.setFixedHeight(self.ui.graphicsPicture.width())
-            self.ui.graphicsPicture.setSizePolicy(0, 0)
-        print(self.ui.graphicsPicture.width(), self.ui.graphicsPicture.height(), self.ui.graphicsPicture.sizePolicy().horizontalPolicy(),  self.ui.graphicsPicture.sizePolicy().verticalPolicy())
+        if self.counter[0] > 0:
+            self.counter[0] -= 1
+            return
 
-        print(self.ui.graphicsEditor.width(), self.ui.graphicsEditor.height(), self.ui.graphicsEditor.sizePolicy().horizontalPolicy(),  self.ui.graphicsEditor.sizePolicy().verticalPolicy())
-        if self.ui.graphicsEditor.width() >= self.ui.graphicsEditor.height():
-            self.ui.graphicsEditor.setFixedHeight(self.ui.graphicsEditor.width())
+        if self.ui.frame_3.width() < self.ui.frame_3.height():
+            self.ui.graphicsPicture.setFixedHeight(self.ui.frame_3.width()-10)
+            self.ui.graphicsPicture.setFixedWidth(self.ui.graphicsPicture.height())
+            self.ui.graphicsPicture.setSizePolicy(0, 0)
+        elif self.ui.frame_3.width() > self.ui.frame_3.height(): 
+            self.ui.graphicsPicture.setFixedWidth(self.ui.frame_3.height()-10)
+            self.ui.graphicsPicture.setFixedHeight(self.ui.graphicsPicture.width())
+            self.ui.graphicsPicture.setSizePolicy(0, 0)
+        else:
+            self.ui.graphicsPicture.setFixedWidth(self.ui.frame_3.width()-10)
+            self.ui.graphicsPicture.setFixedWidth(self.ui.frame_3.height()-10)
+
+        if self.ui.frame_2.width() < self.ui.frame_2.height():
+            self.ui.graphicsEditor.setFixedHeight(self.ui.frame_2.width()-10)
             self.ui.graphicsEditor.setFixedWidth(self.ui.graphicsEditor.height())
             self.ui.graphicsEditor.setSizePolicy(0, 0)
-        else: 
-            self.ui.graphicsEditor.setFixedWidth(self.ui.graphicsEditor.height())
+        elif self.ui.frame_2.width() > self.ui.frame_2.height(): 
+            self.ui.graphicsEditor.setFixedWidth(self.ui.frame_2.height()-10)
             self.ui.graphicsEditor.setFixedHeight(self.ui.graphicsEditor.width())
             self.ui.graphicsEditor.setSizePolicy(0, 0)
-        print(self.ui.graphicsEditor.width(), self.ui.graphicsEditor.height(), self.ui.graphicsEditor.sizePolicy().horizontalPolicy(),  self.ui.graphicsEditor.sizePolicy().verticalPolicy())
+        else:
+            self.ui.graphicsEditor.setFixedWidth(self.ui.frame_2.width()-10)
+            self.ui.graphicsEditor.setFixedWidth(self.ui.frame_2.height()-10)
     def graphicsTest(self):
         gp = self.ui.graphicsPicture
         ge = self.ui.graphicsEditor
@@ -111,9 +115,5 @@ flag = [1]
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
     windows = [MainWindow()]
-    ui = Ui_MainWindow()
-    ui.setupUi(windows[0])
     windows[0].show()
-    #sys.exit(app.exec_())
-    time.sleep(5)
-    sys.exit()
+    sys.exit(app.exec_())

@@ -3,7 +3,7 @@
 <h3>Features:</h3>
 <ul>
     <li>Will be written in Python, which means cross-platform compatibility (unlike regular YYCHR, which is only available for Windows)</li>
-    <li>A good-looking interface in <del>Qt5</del> GTK3 (4 isn't available everywhere)</li>
+    <li>A good-looking interface in Qt5</li>
 </ul>
 <h3>Basic things to be added</h3>
 <ul>
@@ -16,6 +16,6 @@
 </ul>
 
 <h3> Notes:</h3>
-*It doesn't work yet lol, wait an eternity at least
+*It doesn't work yet lol, wait at least an eon
 
 

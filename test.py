@@ -19,6 +19,7 @@ class MainWindow(Gtk.Window):
 
         self.version="2.0.0α"
         self.set_title("PY-CHR v" + self.version)
+        self.set_icon_from_file("UI/icon.ico")
         #self.parseSettings()
         #self.localize()
         self.connect("destroy", Gtk.main_quit)
