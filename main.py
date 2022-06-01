@@ -1,17 +1,16 @@
-version = "1.4.2α"
+version = "1.4.3α"
 
 from PyQt5 import QtWidgets, uic, QtGui, QtCore
 import sys, os, json, configparser, time, Resources
-from ui import Ui_MainWindow
 
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
-        self.counter = [2]
         self.ui = uic.loadUi("UI/Main.ui")
         self.ui.setWindowTitle("PY-CHR v"+version)
         self.parseSettings()
         self.localize()
+        #self.importPlugins()
         self.ui.centralwidget.resizeEvent = self.resizeEvent
         self.ui.show()
         self.resizeGraphics()
@@ -31,7 +30,17 @@ class MainWindow(QtWidgets.QMainWindow):
             elif str(type (attr)) == "<class 'PyQt5.QtWidgets.QAction'>" or str(type (attr)) == "<class 'PyQt5.QtWidgets.QPushButton'>" or str(type (attr)) == "<class 'PyQt5.QtWidgets.QLabel'>":
                 attr.setText(self.localizedData[key])
         setattr (self.ui, key, attr)
-        #self.ui.menuHelpAbout.triggered.connect(self.buttonClickAbout)
+    # def importPlugins(self):
+    #     if not os.path.isdir("Plugins"):
+    #         QtWidgets.QMessageBox.warning(self, "PY-CHR v"+version+" Warning", "It seems that you have deleted the Plugins folder.\nIt is crucial for PY-CHR to interpret graphics. \n\n\nPlease put it back, or download PY-CHR again.")
+    #         return
+    #     if not os.path.isfile("Plugins/builtin.py"):
+    #         QtWidgets.QMessageBox.warning(self, "PY-CHR v"+version+" Warning", "It seems that you have deleted the Plugins/builtin.py file.\nIt is crucial for PY-CHR to interpret graphics. \n\n\nPlease put it back, or download PY-CHR again.")
+    #         return
+    #     sys.path.insert(0, "Plugins")
+    #     import builtin
+    #     print(builtin.formats)
+    #     builtin.interpret("1", b"040033")        
     def parseSettings(self):
         self.config = configparser.ConfigParser()
         if os.path.isfile("pychr.cfg"):
@@ -47,20 +56,17 @@ class MainWindow(QtWidgets.QMainWindow):
     #Actions for buttons
     def buttonClickAbout(self):
         windows.append(AboutWindow(self, len(windows)))
-        print(windows)
 
     def resizeGraphics(self):
-        if self.counter[0] > 0:
-            self.counter[0] -= 1
-            return
         if self.ui.frame_3.width() < self.ui.frame_3.height():
-            diff = int((self.ui.frame_3.height() - self.ui.frame_3.width())/2)
+            diff = int((self.ui.frame_3.height() - self.ui.frame_3.width()+self.ui.graphicsPicture.verticalScrollBar().width())/2)
             self.ui.frame_3.setContentsMargins(0,diff,0,diff)
-        elif self.ui.frame_3.width() > self.ui.frame_3.height(): 
-            diff = int((self.ui.frame_3.width() - self.ui.frame_3.height())/2)
+        elif self.ui.frame_3.width() > self.ui.frame_3.height() + self.ui.graphicsPicture.verticalScrollBar().width(): 
+            diff = int((self.ui.frame_3.width() - self.ui.frame_3.height()-self.ui.graphicsPicture.verticalScrollBar().width())/2)
             self.ui.frame_3.setContentsMargins(diff,0,diff,0)
         else:
-            self.ui.frame_3.setContentsMargins(0,0,0,0)
+            diff = int((self.ui.graphicsPicture.verticalScrollBar().width() - self.ui.frame_3.width() + self.ui.frame_3.height())/2)
+            self.ui.frame_3.setContentsMargins(0,diff,0,diff)
 
         if self.ui.frame_2.width() < self.ui.frame_2.height():
             diff = int((self.ui.frame_2.height() - self.ui.frame_2.width())/2)
@@ -76,7 +82,6 @@ class MainWindow(QtWidgets.QMainWindow):
         gpsize = gp.width() - gp.width()%128
         gpscale = gpsize / 128
         gpscene = QtWidgets.QGraphicsScene(0,0, gpsize, gpsize*4)
-        print (gpsize)
 
         brushes = [QtGui.QBrush(QtGui.QColor(0,0,0,255)), QtGui.QBrush(QtGui.QColor(255,0,0,255))]
         pen = QtGui.QPen(QtGui.QColor(255,0,0,0))
@@ -86,12 +91,6 @@ class MainWindow(QtWidgets.QMainWindow):
                 # gpscene.addRect(x,y,1,1,pen,brushes[(x+y)%2])
 
         gp.setScene(gpscene)
-        #gp.fitInView(0,0, gpsize, gpsize)
-
-        # gp.fitInView(0,0, 128, 128)
-
-        # gp.fitInView(0,0, 128, 128)
-
 class AboutWindow(QtWidgets.QDialog):
     def __init__(self, main, index):
         super().__init__()
@@ -102,11 +101,9 @@ class AboutWindow(QtWidgets.QDialog):
         self.ui.closeEvent = self.closeEvent
         self.ui.show()
         self.index = index
-        print(self.index)
 
 flag = [1]
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
     windows = [MainWindow()]
-    windows[0].show()
     sys.exit(app.exec_())

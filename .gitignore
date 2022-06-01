@@ -129,3 +129,6 @@ dmypy.json
 .pyre/
 
 pychr.cfg
+.vscode/
+Plugins/
+Resources/
