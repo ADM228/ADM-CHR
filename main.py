@@ -1,4 +1,4 @@
-version = "1.4.3α"
+version = "1.4.4α:0001"
 
 from PyQt5 import QtWidgets, uic, QtGui, QtCore
 import sys, os, json, configparser, time, Resources
@@ -18,13 +18,28 @@ class MainWindow(QtWidgets.QMainWindow):
         self.resizeGraphics()
         return super(MainWindow, self).resizeEvent(event)
     def localize(self):
+        comboboxFlag = 0
+        combobox = 0
         self.locale = configparser.ConfigParser()
         self.locale.optionxform = str #making it case-insensitive
         if os.path.isfile("pychr.lang"):
             self.locale.read("pychr.lang",encoding="utf-8")
         self.localizedData = self.locale[self.config['PY-CHR']['language']]
         for key in self.localizedData:
-            attr = getattr(self.ui, key)
+            try:
+                attr = getattr(self.ui, key)
+            except:
+                if comboboxFlag == 1:
+                    combobox.setItemText(combobox.findText(key), self.localizedData[key] if ("⍼" not in self.localizedData[key]) else self.localizedData[key][:len(self.localizedData[key])-1])
+                    if "⍼" in self.localizedData[key]:
+                        comboboxFlag = 0
+                    continue
+            #Checking if it's a combobox that needs translated elements
+            if str(type (attr)) == "<class 'PyQt5.QtWidgets.QComboBox'>" and self.localizedData[key] == "⍼":
+                comboboxFlag = 1
+                combobox = attr
+                continue
+            #Checking directly
             if str(type (attr)) == "<class 'PyQt5.QtWidgets.QMenu'>":
                 attr.setTitle(self.localizedData[key])
             elif str(type (attr)) == "<class 'PyQt5.QtWidgets.QAction'>" or str(type (attr)) == "<class 'PyQt5.QtWidgets.QPushButton'>" or str(type (attr)) == "<class 'PyQt5.QtWidgets.QLabel'>":
