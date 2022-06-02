@@ -2,7 +2,29 @@
 labelFormat = Format:
 labelRotate = Rotate:
 labelMirror = Mirror:
+labelPattern = Pattern:
 buttonFormatInfo = Info...
+comboZoom = ⍼
+comboZoom2x = 2x (256x256)
+comboZoom3x = 3x (384x384)
+comboZoom4x = 4x (512x512)
+comboZoom5x = 5x (640x640)
+comboZoom6x = 6x (768x768)
+comboZoom7x = 7x (896x896)
+comboZoom8x = 8x (1024x1024)
+comboZoom10x = 10x (1280x1280)
+comboZoom12x = 12x (1536x1536)
+comboZoom14x = 14x (1792x1792)
+comboZoom16x = 16x (2048x2048)
+comboZoom24x = 24x (3072x3072)
+comboZoom32x = 32x (4096x4096)⍼
+
+[jp_jp]
+labelFormat = 画像形式:
+labelRotate = 回転:
+labelMirror = 反転:
+labelPattern = 表示パターン:
+buttonFormatInfo = 情報...
 comboZoom = ⍼
 comboZoom2x = 2x (256x256)
 comboZoom3x = 3x (384x384)
@@ -20,3 +42,4 @@ comboZoom32x = 32x (4096x4096)⍼
 
 [langSelect]
 en_us = 🇺🇸 English 
+jp_jp = 🇯🇵 [Please translate: "Japanese" in Japanese]

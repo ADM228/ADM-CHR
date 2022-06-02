@@ -1,4 +1,4 @@
-version = "1.4.4α:0001"
+version = "1.4.4α:0002"
 
 from PyQt5 import QtWidgets, uic, QtGui, QtCore
 import sys, os, json, configparser, time, Resources
@@ -33,7 +33,7 @@ class MainWindow(QtWidgets.QMainWindow):
                     combobox.setItemText(combobox.findText(key), self.localizedData[key] if ("⍼" not in self.localizedData[key]) else self.localizedData[key][:len(self.localizedData[key])-1])
                     if "⍼" in self.localizedData[key]:
                         comboboxFlag = 0
-                    continue
+                continue
             #Checking if it's a combobox that needs translated elements
             if str(type (attr)) == "<class 'PyQt5.QtWidgets.QComboBox'>" and self.localizedData[key] == "⍼":
                 comboboxFlag = 1
