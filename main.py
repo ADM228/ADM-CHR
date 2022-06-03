@@ -1,4 +1,4 @@
-version = "1.4.4α:0002"
+version = "1.5.0α:0003"
 
 from PyQt5 import QtWidgets, uic, QtGui, QtCore
 import sys, os, json, configparser, time, Resources
@@ -10,6 +10,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.setWindowTitle("PY-CHR v"+version)
         self.parseSettings()
         self.localize()
+        self.ui.comboZoom.activated.connect(self.resizeAction)
         #self.importPlugins()
         self.ui.centralwidget.resizeEvent = self.resizeEvent
         self.ui.show()
@@ -71,7 +72,14 @@ class MainWindow(QtWidgets.QMainWindow):
     #Actions for buttons
     def buttonClickAbout(self):
         windows.append(AboutWindow(self, len(windows)))
-
+    def resizeAction(self):
+        number = self.ui.comboZoom.currentIndex()
+        if number == 0:
+            return
+        numbers = [256,384,512,640,768,896,1024,1280,1536,1792,2048,3072,4096]
+        self.ui.frame_3.setMinimumSize(numbers[number-1],numbers[number-1])
+        self.ui.frame_3.setMaximumSize(numbers[number-1],numbers[number-1])
+        self.resizeGraphics()
     def resizeGraphics(self):
         if self.ui.frame_3.width() < self.ui.frame_3.height():
             diff = int((self.ui.frame_3.height() - self.ui.frame_3.width()+self.ui.graphicsPicture.verticalScrollBar().width())/2)
@@ -91,6 +99,14 @@ class MainWindow(QtWidgets.QMainWindow):
             self.ui.frame_2.setContentsMargins(diff,0,diff,0)
         else:
             self.ui.frame_2.setContentsMargins(0,0,0,0)
+        #Deez buttns
+        #I'm going nuts over this
+        h = int(self.ui.buttonJumpFrame.height()/15)
+        w = int(self.ui.buttonJumpFrame.width()/1.5)
+        size = h if w>h else w
+        for i in ["Begin", "M100", "M10", "M1", "M1b", "P1b", "P1", "P10", "P100", "End"]:
+            attr = getattr(self.ui, "buttonJump"+i)
+            attr.setIconSize(QtCore.QSize(size,size))
     def graphicsTest(self):
         gp = self.ui.graphicsPicture
         ge = self.ui.graphicsEditor

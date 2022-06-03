@@ -1,6 +1,15 @@
 <RCC>
   <qresource prefix="Everything">
-    <file alias="lang">../m7te.lang</file>
+    <file>Block+1.png</file>
+    <file>Block+10.png</file>
+    <file>Block+100.png</file>
+    <file>EndOfFile.png</file>
+    <file>Byte+1.png</file>
+    <file>Byte-1.png</file>
+    <file>Block-1.png</file>
+    <file>BeginningOfFile.png</file>
+    <file>Block-10.png</file>
+    <file>Block-100.png</file>
     <file>icon.ico</file>
     <file>PictureGrid.png</file>
     <file>EditorGrid.png</file>
