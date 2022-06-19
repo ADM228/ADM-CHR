@@ -1,8 +1,7 @@
-version = "1.5.0α:0003"
+version = "1.5.0α:0005"
 
 from PyQt5 import QtWidgets, uic, QtGui, QtCore
 import sys, os, json, configparser, time, Resources
-
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
@@ -10,11 +9,17 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.setWindowTitle("PY-CHR v"+version)
         self.parseSettings()
         self.localize()
-        self.ui.comboZoom.activated.connect(self.resizeAction)
+        self.ui.comboGUISize.activated.connect(self.resizeAction)
+        self.blockSize = 8
+        self.pic = 0
         #self.importPlugins()
         self.ui.centralwidget.resizeEvent = self.resizeEvent
+        self.ui.graphicsPicture.mouseMoveEvent = self.mousetrack
         self.ui.show()
         self.resizeGraphics()
+    def mousetrack(self,event):
+        pic = self.ui.graphicsPicture
+        print('pss', event.x()//((pic.width()-pic.verticalScrollBar().width())/16), event.y()//(pic.height()/16))
     def resizeEvent(self, event):
         self.resizeGraphics()
         return super(MainWindow, self).resizeEvent(event)
@@ -45,7 +50,14 @@ class MainWindow(QtWidgets.QMainWindow):
                 attr.setTitle(self.localizedData[key])
             elif str(type (attr)) == "<class 'PyQt5.QtWidgets.QAction'>" or str(type (attr)) == "<class 'PyQt5.QtWidgets.QPushButton'>" or str(type (attr)) == "<class 'PyQt5.QtWidgets.QLabel'>":
                 attr.setText(self.localizedData[key])
-        setattr (self.ui, key, attr)
+        #Localizing the tooltips
+        self.localizedData = self.locale[self.config['PY-CHR']['language']+"_tooltips"]
+        for key in self.localizedData:
+            attr = getattr(self.ui, key)
+            attr.setToolTip(self.localizedData[key])
+
+    #Future code for the beta phase
+    #==============================================================================================================
     # def importPlugins(self):
     #     if not os.path.isdir("Plugins"):
     #         QtWidgets.QMessageBox.warning(self, "PY-CHR v"+version+" Warning", "It seems that you have deleted the Plugins folder.\nIt is crucial for PY-CHR to interpret graphics. \n\n\nPlease put it back, or download PY-CHR again.")
@@ -57,6 +69,8 @@ class MainWindow(QtWidgets.QMainWindow):
     #     import builtin
     #     print(builtin.formats)
     #     builtin.interpret("1", b"040033")        
+    #==============================================================================================================
+
     def parseSettings(self):
         self.config = configparser.ConfigParser()
         if os.path.isfile("pychr.cfg"):
@@ -73,7 +87,7 @@ class MainWindow(QtWidgets.QMainWindow):
     def buttonClickAbout(self):
         windows.append(AboutWindow(self, len(windows)))
     def resizeAction(self):
-        number = self.ui.comboZoom.currentIndex()
+        number = self.ui.comboGUISize.currentIndex()
         if number == 0:
             return
         numbers = [256,384,512,640,768,896,1024,1280,1536,1792,2048,3072,4096]
@@ -101,12 +115,11 @@ class MainWindow(QtWidgets.QMainWindow):
             self.ui.frame_2.setContentsMargins(0,0,0,0)
         #Deez buttns
         #I'm going nuts over this
-        h = int(self.ui.buttonJumpFrame.height()/15)
+        h = int(self.ui.buttonJumpFrame.height()/12) - 5
         w = int(self.ui.buttonJumpFrame.width()/1.5)
-        size = h if w>h else w
-        for i in ["Begin", "M100", "M10", "M1", "M1b", "P1b", "P1", "P10", "P100", "End"]:
+        for i in ["Begin", "M100", "M10", "M1", "M1b", "P1b", "P1", "P10", "P100", "End","AddressInput"]:
             attr = getattr(self.ui, "buttonJump"+i)
-            attr.setIconSize(QtCore.QSize(size,size))
+            attr.setIconSize(QtCore.QSize(w,h))
     def graphicsTest(self):
         gp = self.ui.graphicsPicture
         ge = self.ui.graphicsEditor

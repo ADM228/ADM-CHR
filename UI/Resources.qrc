@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="Everything">
+    <file>AddressInput.png</file>
     <file>Block+1.png</file>
     <file>Block+10.png</file>
     <file>Block+100.png</file>

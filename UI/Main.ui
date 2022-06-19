@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>971</width>
-    <height>551</height>
+    <height>571</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -203,6 +203,15 @@
                   <height>256</height>
                  </size>
                 </property>
+                <property name="cursor" stdset="0">
+                 <cursorShape>ArrowCursor</cursorShape>
+                </property>
+                <property name="mouseTracking">
+                 <bool>true</bool>
+                </property>
+                <property name="autoFillBackground">
+                 <bool>false</bool>
+                </property>
                 <property name="frameShape">
                  <enum>QFrame::WinPanel</enum>
                 </property>
@@ -318,6 +327,18 @@
             </property>
             <property name="sizeConstraint">
              <enum>QLayout::SetMaximumSize</enum>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
             </property>
             <item>
              <widget class="QPushButton" name="buttonJumpBegin">
@@ -498,6 +519,12 @@
                 <height>24</height>
                </size>
               </property>
+              <property name="default">
+               <bool>false</bool>
+              </property>
+              <property name="flat">
+               <bool>false</bool>
+              </property>
              </widget>
             </item>
             <item>
@@ -571,6 +598,30 @@
               </property>
              </widget>
             </item>
+            <item>
+             <widget class="QPushButton" name="buttonJumpAddressInput">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normalon>:/Everything/AddressInput.png</normalon>
+               </iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>24</width>
+                <height>24</height>
+               </size>
+              </property>
+             </widget>
+            </item>
            </layout>
           </widget>
          </item>
@@ -583,7 +634,7 @@
          <number>0</number>
         </property>
         <item>
-         <widget class="QComboBox" name="comboZoom">
+         <widget class="QComboBox" name="comboGUISize">
           <item>
            <property name="text">
             <string/>
@@ -591,73 +642,143 @@
           </item>
           <item>
            <property name="text">
-            <string>comboZoom2x</string>
+            <string>comboGUISize2x</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>comboZoom3x</string>
+            <string>comboGUISize3x</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>comboZoom4x</string>
+            <string>comboGUISize4x</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>comboZoom5x</string>
+            <string>comboGUISize5x</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>comboZoom6x</string>
+            <string>comboGUISize6x</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>comboZoom7x</string>
+            <string>comboGUISize7x</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>comboZoom8x</string>
+            <string>comboGUISize8x</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>comboZoom10x</string>
+            <string>comboGUISize10x</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>comboZoom12x</string>
+            <string>comboGUISize12x</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>comboZoom14x</string>
+            <string>comboGUISize14x</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>comboZoom16x</string>
+            <string>comboGUISize16x</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>comboZoom24x</string>
+            <string>comboGUISize24x</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>comboZoom32x</string>
+            <string>comboGUISize32x</string>
            </property>
           </item>
          </widget>
         </item>
         <item>
-         <widget class="QComboBox" name="comboGridType"/>
+         <widget class="QComboBox" name="comboEditSize">
+          <item>
+           <property name="text">
+            <string>comboEditSize8</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>comboEditSize16</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>comboEditSize24</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>comboEditSize32</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>comboEditSize48</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>comboEditSize64</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>comboEditSize96</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>comboEditSize128</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="comboGridStyle">
+          <item>
+           <property name="text">
+            <string>comboGridStyleNone</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>comboGridStylePoint</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>comboGridStyleDot</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>comboGridStyleDash</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>comboGridStyleLine</string>
+           </property>
+          </item>
+         </widget>
         </item>
         <item>
          <widget class="QPushButton" name="buttonPictureGrid">
