@@ -1,22 +1,47 @@
-version = "1.5.0α:0005"
+version = "1.5.0α:0006"
+
+
 
 from PyQt5 import QtWidgets, uic, QtGui, QtCore
-import sys, os, json, configparser, time, Resources
+import sys, os, json, configparser, time, Resources, QGoodButton
+
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
         self.ui = uic.loadUi("UI/Main.ui")
         self.ui.setWindowTitle("PY-CHR v"+version)
+        self.addButtons()
         self.parseSettings()
         self.localize()
+        self.buttonPaletteTable()
         self.ui.comboGUISize.activated.connect(self.resizeAction)
         self.blockSize = 8
         self.pic = 0
         #self.importPlugins()
         self.ui.centralwidget.resizeEvent = self.resizeEvent
         self.ui.graphicsPicture.mouseMoveEvent = self.mousetrack
+        self.ui.buttonPaletteTable.clicked.connect(self.buttonPaletteTable)
         self.ui.show()
         self.resizeGraphics()
+    def addButtons(self):
+        #first the jump buttons
+        jumpButtonList = ["Begin", "M100", "M10", "M1", "M1b", "P1b", "P1", "P10", "P100", "End"]
+        jumpButtonImageList = ["BeginningOfFile", "Block-100", "Block-10", "Block-1", "Byte-1", "Byte+1", "Block+1", "Block+10", "Block+100", "EndOfFile"]
+        attr = 0
+        for button in range(len(jumpButtonList)):
+            attr = QGoodButton.QGoodButton(QtGui.QPixmap.fromImage(QtGui.QImage(":/Everything/"+jumpButtonImageList[button]+".png")))
+            setattr(self.ui,"buttonJump"+jumpButtonList[button],attr)
+            self.ui.buttonJumpFrame.layout().addWidget(attr)
+        #then the rest
+        buttonList = [{"name":"PictureGrid", "filename":"PictureGrid", "parent":"horizontalLayout_3"},{"name":"EditorGrid", "filename":"EditorGrid", "parent":"horizontalLayout_3"}]
+        for button in buttonList:
+            attr = QGoodButton.QGoodButton(QtGui.QPixmap.fromImage(QtGui.QImage(":/Everything/"+button['filename']+".png")))
+            setattr(self.ui,"button"+button['name'],attr)
+            attr2 = getattr(self.ui, button['parent'])
+            if str(type(attr2)) == "<class 'PyQt5.QtWidgets.QFrame'>":
+                attr2.layout().addWidget(attr)
+            else:
+                attr2.addWidget(attr)
     def mousetrack(self,event):
         pic = self.ui.graphicsPicture
         print('pss', event.x()//((pic.width()-pic.verticalScrollBar().width())/16), event.y()//(pic.height()/16))
@@ -55,7 +80,7 @@ class MainWindow(QtWidgets.QMainWindow):
         for key in self.localizedData:
             attr = getattr(self.ui, key)
             attr.setToolTip(self.localizedData[key])
-
+    def a(self):
     #Future code for the beta phase
     #==============================================================================================================
     # def importPlugins(self):
@@ -70,7 +95,7 @@ class MainWindow(QtWidgets.QMainWindow):
     #     print(builtin.formats)
     #     builtin.interpret("1", b"040033")        
     #==============================================================================================================
-
+        pass
     def parseSettings(self):
         self.config = configparser.ConfigParser()
         if os.path.isfile("pychr.cfg"):
@@ -104,10 +129,12 @@ class MainWindow(QtWidgets.QMainWindow):
         else:
             diff = int((self.ui.graphicsPicture.verticalScrollBar().width() - self.ui.frame_3.width() + self.ui.frame_3.height())/2)
             self.ui.frame_3.setContentsMargins(0,diff,0,diff)
+        
+        self.ui.buttonJumpFrame.setMinimumSize(self.ui.frame_3.width()//16+8,0)
 
         if self.ui.frame_2.width() < self.ui.frame_2.height():
-            diff = int((self.ui.frame_2.height() - self.ui.frame_2.width())/2)
-            self.ui.frame_2.setContentsMargins(0,diff,0,diff)
+            diff = int((self.ui.frame_2.height() - self.ui.frame_2.width()))
+            self.ui.frame_2.setContentsMargins(0,0,0,diff)
         elif self.ui.frame_2.width() > self.ui.frame_2.height(): 
             diff = int((self.ui.frame_2.width() - self.ui.frame_2.height())/2)
             self.ui.frame_2.setContentsMargins(diff,0,diff,0)
@@ -115,11 +142,13 @@ class MainWindow(QtWidgets.QMainWindow):
             self.ui.frame_2.setContentsMargins(0,0,0,0)
         #Deez buttns
         #I'm going nuts over this
-        h = int(self.ui.buttonJumpFrame.height()/12) - 5
-        w = int(self.ui.buttonJumpFrame.width()/1.5)
-        for i in ["Begin", "M100", "M10", "M1", "M1b", "P1b", "P1", "P10", "P100", "End","AddressInput"]:
-            attr = getattr(self.ui, "buttonJump"+i)
-            attr.setIconSize(QtCore.QSize(w,h))
+        size = min(int(self.ui.buttonJumpFrame.width()/1.5), int(self.ui.buttonJumpFrame.height()/12) - 5)
+    def buttonPaletteTable(self):
+        checked = self.ui.buttonPaletteTable.isChecked()
+        if checked:
+            self.ui.graphicsPaletteTable.show()
+        else:
+            self.ui.graphicsPaletteTable.hide()
     def graphicsTest(self):
         gp = self.ui.graphicsPicture
         ge = self.ui.graphicsEditor
