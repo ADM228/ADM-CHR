@@ -1,18 +1,24 @@
 <RCC>
-  <qresource prefix="Everything">
+  <qresource prefix="misc">
+    <file>icon.ico</file>
+  </qresource>
+  <qresource prefix="buttonJump">
     <file>AddressInput.png</file>
+    <file>BeginningOfFile.png</file>
+    <file>Block-1.png</file>
+    <file>Block-10.png</file>
+    <file>Block-100.png</file>
     <file>Block+1.png</file>
     <file>Block+10.png</file>
     <file>Block+100.png</file>
-    <file>EndOfFile.png</file>
-    <file>Byte+1.png</file>
     <file>Byte-1.png</file>
-    <file>Block-1.png</file>
-    <file>BeginningOfFile.png</file>
-    <file>Block-10.png</file>
-    <file>Block-100.png</file>
-    <file>icon.ico</file>
-    <file>PictureGrid.png</file>
+    <file>Byte+1.png</file>
+    <file>EndOfFile.png</file>
+  </qresource>
+  <qresource prefix="button">
     <file>EditorGrid.png</file>
+    <file>PictureGrid.png</file>
+    <file>Palette.png</file>
+    <file>PaletteTable.png</file>
   </qresource>
 </RCC>

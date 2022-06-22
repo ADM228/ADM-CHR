@@ -1,4 +1,4 @@
-<h1 align=center> PY-CHR - an unofficial recreation of YYCHR, written in Python</h1>
+<h1 align=center> PY-CHR - an clone of YYCHR written in Python</h1>
 
 <h3>Features:</h3>
 <ul>

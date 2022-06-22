@@ -48,6 +48,8 @@ buttonJumpP1 = Jump +1 blocks　　　　　　　　　　　　　　　　　
 buttonJumpP10 = Jump +10 blocks
 buttonJumpP100 = Jump +100 blocks
 buttonJumpEnd = Jump to the end of file
+buttonPictureGrid = Picture Grid
+buttonEditorGrid = Editor Grid
 
 [jp_jp]
 labelFormat = 画像形式：
@@ -99,6 +101,8 @@ buttonJumpP1 = アドレス＋１ブロック
 buttonJumpP10 = アドレス＋１０ブロック
 buttonJumpP100 = アドレス＋１００ブロック
 buttonJumpEnd = アドレス終端
+buttonPictureGrid = ＣＨＲバンクグリッド
+buttonEditorGrid = エディタグリッド
 
 
 [langSelect]

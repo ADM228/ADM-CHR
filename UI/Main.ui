@@ -21,7 +21,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="Resources.qrc">
-    <normaloff>:/Everything/icon.ico</normaloff>:/Everything/icon.ico</iconset>
+    <normaloff>:/misc/icon.ico</normaloff>:/misc/icon.ico</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="sizePolicy">
@@ -153,22 +153,6 @@
            <number>0</number>
           </property>
           <item>
-           <widget class="QPushButton" name="buttonPaletteTable">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string>t</string>
-            </property>
-            <property name="checkable">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
            <layout class="QVBoxLayout" name="layoutGraphicsPalette">
             <item>
              <widget class="QGraphicsView" name="graphicsPaletteTable">
@@ -279,8 +263,8 @@
                  </property>
                  <property name="minimumSize">
                   <size>
-                   <width>256</width>
-                   <height>256</height>
+                   <width>0</width>
+                   <height>0</height>
                   </size>
                  </property>
                  <property name="cursor" stdset="0">
@@ -453,7 +437,7 @@
         <item>
          <widget class="QComboBox" name="comboGUISize">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
@@ -533,7 +517,7 @@
         <item>
          <widget class="QComboBox" name="comboEditSize">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
@@ -583,7 +567,7 @@
         <item>
          <widget class="QComboBox" name="comboGridStyle">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>

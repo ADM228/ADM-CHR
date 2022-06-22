@@ -1,4 +1,4 @@
-version = "1.5.0α:0006"
+version = "1.5.0α:0007"
 
 
 
@@ -20,7 +20,7 @@ class MainWindow(QtWidgets.QMainWindow):
         #self.importPlugins()
         self.ui.centralwidget.resizeEvent = self.resizeEvent
         self.ui.graphicsPicture.mouseMoveEvent = self.mousetrack
-        self.ui.buttonPaletteTable.clicked.connect(self.buttonPaletteTable)
+        self.ui.buttonPaletteTable.clickedConnect(self.buttonPaletteTable)
         self.ui.show()
         self.resizeGraphics()
     def addButtons(self):
@@ -29,19 +29,23 @@ class MainWindow(QtWidgets.QMainWindow):
         jumpButtonImageList = ["BeginningOfFile", "Block-100", "Block-10", "Block-1", "Byte-1", "Byte+1", "Block+1", "Block+10", "Block+100", "EndOfFile"]
         attr = 0
         for button in range(len(jumpButtonList)):
-            attr = QGoodButton.QGoodButton(QtGui.QPixmap.fromImage(QtGui.QImage(":/Everything/"+jumpButtonImageList[button]+".png")))
+            attr = QGoodButton.QGoodButton(":/buttonJump/"+jumpButtonImageList[button]+".png")
             setattr(self.ui,"buttonJump"+jumpButtonList[button],attr)
             self.ui.buttonJumpFrame.layout().addWidget(attr)
-        #then the rest
-        buttonList = [{"name":"PictureGrid", "filename":"PictureGrid", "parent":"horizontalLayout_3"},{"name":"EditorGrid", "filename":"EditorGrid", "parent":"horizontalLayout_3"}]
+        #then the regular buttons
+        buttonList = [{"name":"PictureGrid", "filename":"PictureGrid", "parent":"horizontalLayout_3", "checkable": True},{"name":"EditorGrid", "filename":"EditorGrid", "parent":"horizontalLayout_3", "checkable": True}]
         for button in buttonList:
-            attr = QGoodButton.QGoodButton(QtGui.QPixmap.fromImage(QtGui.QImage(":/Everything/"+button['filename']+".png")))
+            attr = QGoodButton.QGoodButton(":/button/"+button['filename']+".png")
+            attr.checkable = button['checkable']
             setattr(self.ui,"button"+button['name'],attr)
             attr2 = getattr(self.ui, button['parent'])
             if str(type(attr2)) == "<class 'PyQt5.QtWidgets.QFrame'>":
                 attr2.layout().addWidget(attr)
             else:
                 attr2.addWidget(attr)
+        #then the one mode switch
+        self.ui.buttonPaletteTable = QGoodButton.QModeSwitch([":/button/Palette.png",":/button/PaletteTable.png"])
+        self.ui.framePalette.layout().addWidget(self.ui.buttonPaletteTable)
     def mousetrack(self,event):
         pic = self.ui.graphicsPicture
         print('pss', event.x()//((pic.width()-pic.verticalScrollBar().width())/16), event.y()//(pic.height()/16))
@@ -130,7 +134,7 @@ class MainWindow(QtWidgets.QMainWindow):
             diff = int((self.ui.graphicsPicture.verticalScrollBar().width() - self.ui.frame_3.width() + self.ui.frame_3.height())/2)
             self.ui.frame_3.setContentsMargins(0,diff,0,diff)
         
-        self.ui.buttonJumpFrame.setMinimumSize(self.ui.frame_3.width()//16+8,0)
+        self.ui.buttonJumpFrame.setMinimumSize(self.ui.graphicsPicture.width()//16,0)
 
         if self.ui.frame_2.width() < self.ui.frame_2.height():
             diff = int((self.ui.frame_2.height() - self.ui.frame_2.width()))
@@ -144,8 +148,8 @@ class MainWindow(QtWidgets.QMainWindow):
         #I'm going nuts over this
         size = min(int(self.ui.buttonJumpFrame.width()/1.5), int(self.ui.buttonJumpFrame.height()/12) - 5)
     def buttonPaletteTable(self):
-        checked = self.ui.buttonPaletteTable.isChecked()
-        if checked:
+        mode = self.ui.buttonPaletteTable.mode
+        if mode == 1:
             self.ui.graphicsPaletteTable.show()
         else:
             self.ui.graphicsPaletteTable.hide()
