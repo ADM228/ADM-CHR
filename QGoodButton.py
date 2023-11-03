@@ -37,9 +37,10 @@ class QGoodButton(QtWidgets.QFrame):
         self.label.setScaledContents(True)
         self.setMinimumSize(8,8)
         
-
+    
     def mousePressEvent(self, ev: QtGui.QMouseEvent) -> None:
         self.setFrameShadow(QtWidgets.QFrame.Shadow.Sunken) 
+
         return super().mousePressEvent(ev)
 
 
@@ -52,7 +53,8 @@ class QGoodButton(QtWidgets.QFrame):
                 self.checked = True
             else:
                 self.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
-                self.checked = False    
+                self.checked = False
+
         return super().mousePressEvent(ev)
     
 
@@ -67,6 +69,7 @@ class QGoodButton(QtWidgets.QFrame):
                 self.layout.setContentsMargins(diff,0,diff,0)
             else:
                 self.layout.setContentsMargins(0,0,0,0)
+
         return super().resizeEvent(a0)
 
 
@@ -101,25 +104,22 @@ class QModeSwitch(QtWidgets.QFrame):
         self.maintainAspectRatio = True
         self.clicked = 0
 
-
     def clickedConnect(self, funcname):
         self.clicked = funcname
-
 
     def mousePressEvent(self, ev: QtGui.QMouseEvent) -> None:
         self.setFrameShadow(QtWidgets.QFrame.Shadow.Sunken) 
 
         return super().mousePressEvent(ev)
     
-
     def mouseReleaseEvent(self, ev: QtGui.QMouseEvent) -> None:
         self.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.mode += 1
 
-        if self.mode == len(self.pixmapList): self.mode = 0
-
         self.clicked()
         self.label.setPixmap(self.pixmapList[self.mode])
+
+        if self.mode == len(self.pixmapList): self.mode = 0
 
         return super().mousePressEvent(ev)
     

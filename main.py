@@ -1,18 +1,9 @@
-#     ___ ___  ___  ___      _   _ ___ ___   _ _____ ___ ___     _____   __
-#    / __/ _ \|   \| __|    | | | | _ \   \ /_\_   _| __/ __|   | _ ) \ / /
-#   | (_| (_) | |) | _|     | |_| |  _/ |) / _ \| | | _|\__ \   | _ \\ V / 
-#    \___\___/|___/|___|     \___/|_| |___/_/ \_\_| |___|___/   |___/ |_|  
-#     ___ ___  _  _ _  _  ___  _____      _____ _    _    ___ _  _ ___ ___ ___ 
-#    / __/ _ \| \| | \| |/ _ \| _ \ \    / /_ _| |  | |  / __| || | _ \_ _/ __|
-#   | (_| (_) | .` | .` | (_) |   /\ \/\/ / | || |__| |_| (__| __ |   /| |\__ \
-#    \___\___/|_|\_|_|\_|\___/|_|_\ \_/\_/ |___|____|____\___|_||_|_|_\___|___/
-# 
+#   CODE UPDATES BY CONNORWILLCHRIS
 #
-# --11/1/2023--
+# --11/3/2023
 #
-# Here are some changes made:
-# 1) organizational changes, some of them required, some of them for myself - but the code *should* be easier to read now
-# 2) 
+# The changes I made are mostly organizational changes. Some of them required,
+# some of them for myself, but the code *should* be easier to read now
 
 # changed the Alpha symbol to a (why use the alpha symbol for alpha anyways? lol)
 version = "1.5.0a:0007"
@@ -24,7 +15,6 @@ import sys, os, json, configparser, time
 import Resources, QGoodButton
 
 class MainWindow(QtWidgets.QMainWindow):
-    # 11/1/2023     DONE
     def __init__(self):
         # init
         super(MainWindow, self).__init__()
@@ -51,27 +41,51 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.resizeGraphics()
 
-    # 11/1/2023     DONE
     def addButtons(self):
-        # first the jump buttons
+        #first the jump buttons
         jumpButtonList = ["Begin", "M100", "M10", "M1", "M1b", "P1b", "P1", "P10", "P100", "End"]
         jumpButtonImageList = ["BeginningOfFile", "Block-100", "Block-10", "Block-1", "Byte-1", "Byte+1", "Block+1", "Block+10", "Block+100", "EndOfFile"]
 
-        # you can declare variables as NONE, which works identical to setting it as an INT      ;)
-        attr = None
+        # I declared this variable as the QGoodButton type, to make it easier to understand
+        attr: QGoodButton
 
         for button in range(len(jumpButtonList)):
-            attr = QGoodButton.QGoodButton(":/buttonJump/"+jumpButtonImageList[button]+".png")
-            setattr(self.ui,"buttonJump"+jumpButtonList[button],attr)
-            self.ui.buttonJumpFrame.layout().addWidget(attr)
 
-        # then the regular buttons
-        buttonList = [{"name":"PictureGrid", "filename":"PictureGrid", "parent":"horizontalLayout_3", "checkable": True},{"name":"EditorGrid", "filename":"EditorGrid", "parent":"horizontalLayout_3", "checkable": True}]
+            # I made this easier to read in general, by using string.format
+            attr = QGoodButton.QGoodButton(":/buttonJump/{}.png".format(jumpButtonImageList[button]))
+
+            setattr(self.ui, "buttonJump" + jumpButtonList[button], attr)
+
+            # you can make stringing functions like this, to make it easier to read!
+            self.ui.buttonJumpFrame.layout()\
+                .addWidget(attr)
+
+        #then the regular buttons
+
+        # updated it to look nicer ;)
+        buttonList =\
+        [
+            {
+                "name": "PictureGrid",
+                "filename": "PictureGrid",
+                "parent": "horizontalLayout_3",
+                "checkable": True
+            },
+            {
+                "name": "EditorGrid",
+                "filename": "EditorGrid",
+                "parent": "horizontalLayout_3",
+                "checkable": True}
+        ]
+
         for button in buttonList:
-            attr = QGoodButton.QGoodButton(":/button/"+button['filename']+".png")
-            attr.checkable = button['checkable']
-            setattr(self.ui,"button"+button['name'],attr)
-            attr2 = getattr(self.ui, button['parent'])
+            attr = QGoodButton.QGoodButton(":/button/{}.png".format(button["filename"]))
+
+            # you use strings kind of inconsistantly. I suggest using one style and sticking to it!
+            attr.checkable = button["checkable"]
+
+            setattr(self.ui, "button" + button["name"], attr)
+            attr2 = getattr(self.ui, button["parent"])
 
             if str(type(attr2)) == "<class 'PyQt5.QtWidgets.QFrame'>":
                 attr2.layout().addWidget(attr)
@@ -80,19 +94,22 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # then the one mode switch
         self.ui.buttonPaletteTable = QGoodButton.QModeSwitch([":/button/Palette.png", ":/button/PaletteTable.png"])
-        self.ui.framePalette.layout().addWidget(self.ui.buttonPaletteTable)
 
-    # 11/1/2023     DONE
+        self.ui.framePalette.layout()\
+            .addWidget(self.ui.buttonPaletteTable)
+
     # records the mouse's position in the box-window for editing CHRs
     def mousetrack(self,event):
         pic = self.ui.graphicsPicture
+
+        # this is very unreadable. I will try to fix it         11/3/2023
         print('pss', event.x()//((pic.width()-pic.verticalScrollBar().width())/16), event.y()//(pic.height()/16))
 
-    # 11/1/2023     DONE
     # this resizes the window, I presume? lol
     def resizeEvent(self, event):
         self.resizeGraphics()
-        return super(MainWindow, self).resizeEvent(event)
+        return super(MainWindow, self)\
+            .resizeEvent(event)
     
     # 11/1/2023     DONE
     #
@@ -100,6 +117,7 @@ class MainWindow(QtWidgets.QMainWindow):
     def localize(self):
         comboboxFlag = 0
         combobox = 0
+
         self.locale = configparser.ConfigParser()
         self.locale.optionxform = str #making it case-insensitive
 
@@ -108,14 +126,17 @@ class MainWindow(QtWidgets.QMainWindow):
         self.localizedData = self.locale[self.config['PY-CHR']['language']]
 
         for key in self.localizedData:
+
             try:
                 attr = getattr(self.ui, key)
+
             except:
                 if comboboxFlag == 1:
+                    # why "⍼" and not something more *orthodox* ?
                     combobox.setItemText(combobox.findText(key), self.localizedData[key] if ("⍼" not in self.localizedData[key]) else self.localizedData[key][:len(self.localizedData[key])-1])
 
-                    # why "⍼" and not something more *orthodox*
-                    if "⍼" in self.localizedData[key]:
+                    # why "⍼" and not something more *orthodox* ?
+                    if "⍼" in self.localizedData[key]: 
                         comboboxFlag = 0
                 continue
 
@@ -123,16 +144,19 @@ class MainWindow(QtWidgets.QMainWindow):
             if str(type (attr)) == "<class 'PyQt5.QtWidgets.QComboBox'>" and self.localizedData[key] == "⍼":
                 comboboxFlag = 1
                 combobox = attr
+
                 continue
 
-            #-Checking directly
+            #Checking directly
             if str(type (attr)) == "<class 'PyQt5.QtWidgets.QMenu'>":
                 attr.setTitle(self.localizedData[key])
+
             elif str(type (attr)) == "<class 'PyQt5.QtWidgets.QAction'>" or str(type (attr)) == "<class 'PyQt5.QtWidgets.QPushButton'>" or str(type (attr)) == "<class 'PyQt5.QtWidgets.QLabel'>":
                 attr.setText(self.localizedData[key])
 
-        #-Localizing the tooltips
+        #Localizing the tooltips
         self.localizedData = self.locale[self.config['PY-CHR']['language']+"_tooltips"]
+
         for key in self.localizedData:
             attr = getattr(self.ui, key)
             attr.setToolTip(self.localizedData[key])
@@ -154,8 +178,6 @@ class MainWindow(QtWidgets.QMainWindow):
     #     builtin.interpret("1", b"040033")        
     #==============================================================================================================
 
-
-    # 11/1/2023     DONE
     # neat system! ;)       
     def parseSettings(self):
         self.config = configparser.ConfigParser()
@@ -165,36 +187,32 @@ class MainWindow(QtWidgets.QMainWindow):
 
         else:
             self.config['PY-CHR'] = {
-                'language': 'en_us',
-                'recent': (json.loads("[]")),
-                'recentFormat': 0
+                "language": "en_us",
+                "recent": (json.loads("[]")),
+                "recentFormat": 0
             }
-            with open("pychr.cfg", 'w') as file:
+            with open("pychr.cfg", "w") as file:
                 self.config.write(file)
 
 
     # Actions for buttons
-
     # todo          work on this about section
-    # 11/1/2023     DONE
     def buttonClickAbout(self):
         windows.append(AboutWindow(self, len(windows)))
 
-        #print('an about section was made')
-
-    # 11/1/2023     DONE
     def resizeAction(self):
         number = self.ui.comboGUISize.currentIndex()
         if number == 0:
             return
         
+        # put this into a JSON maybe?
         numbers = [256, 384, 512, 640, 768, 896, 1024, 1280, 1536, 1792, 2048, 3072, 4096]
 
-        self.ui.frame_3.setMinimumSize(numbers[number-1],numbers[number-1])
-        self.ui.frame_3.setMaximumSize(numbers[number-1],numbers[number-1])
+        self.ui.frame_3.setMinimumSize(numbers[number - 1], numbers[number - 1])
+        self.ui.frame_3.setMaximumSize(numbers[number - 1], numbers[number - 1])
         self.resizeGraphics()
 
-    # looking at this, I realize this is true hell... lol jk
+    # todo      clean this up, it's really messy
     def resizeGraphics(self):
         if self.ui.frame_3.width() < self.ui.frame_3.height():
             diff = int((self.ui.frame_3.height() - self.ui.frame_3.width()+self.ui.graphicsPicture.verticalScrollBar().width())/2)
@@ -208,13 +226,15 @@ class MainWindow(QtWidgets.QMainWindow):
             diff = int((self.ui.graphicsPicture.verticalScrollBar().width() - self.ui.frame_3.width() + self.ui.frame_3.height())/2)
             self.ui.frame_3.setContentsMargins(0,diff,0,diff)
         
+
         self.ui.buttonJumpFrame.setMinimumSize(self.ui.graphicsPicture.width()//16,0)
+
 
         if self.ui.frame_2.width() < self.ui.frame_2.height():
             diff = int((self.ui.frame_2.height() - self.ui.frame_2.width()))
             self.ui.frame_2.setContentsMargins(0,0,0,diff)
 
-        elif self.ui.frame_2.width() > self.ui.frame_2.height(): 
+        elif self.ui.frame_2.width() > self.ui.frame_2.height():
             diff = int((self.ui.frame_2.width() - self.ui.frame_2.height())/2)
             self.ui.frame_2.setContentsMargins(diff,0,diff,0)
 
@@ -222,11 +242,12 @@ class MainWindow(QtWidgets.QMainWindow):
             self.ui.frame_2.setContentsMargins(0,0,0,0)
         #Deez buttns
         #I'm going nuts over this
+        # ... I know, right? lol
 
 
+        # this variable is unused. Why?
         size = min(int(self.ui.buttonJumpFrame.width()/1.5), int(self.ui.buttonJumpFrame.height()/12) - 5)
 
-    # 11/1/2023     DONE
     def buttonPaletteTable(self):
         mode = self.ui.buttonPaletteTable.mode
         if mode == 1:
@@ -234,18 +255,20 @@ class MainWindow(QtWidgets.QMainWindow):
         else:
             self.ui.graphicsPaletteTable.hide()
 
-    # 11/1/2023     DONE
     def graphicsTest(self):
         gp = self.ui.graphicsPicture
 
-        # this is unused!
+        # This is unused. Why?
         ge = self.ui.graphicsEditor
 
         gpsize = gp.width() - gp.width() % 128
         gpscale = gpsize / 128
         gpscene = QtWidgets.QGraphicsScene(0, 0, gpsize, gpsize*4)
 
-        brushes = [QtGui.QBrush(QtGui.QColor(0,0,0,255)), QtGui.QBrush(QtGui.QColor(255,0,0,255))]
+        brushes = [
+            QtGui.QBrush(QtGui.QColor(0,0,0,255)), QtGui.QBrush(QtGui.QColor(255,0,0,255))
+        ]
+
         pen = QtGui.QPen(QtGui.QColor(255,0,0,0))
 
         for x in range (0, 128):
@@ -255,27 +278,27 @@ class MainWindow(QtWidgets.QMainWindow):
 
         gp.setScene(gpscene)
 
-
-# todo - currently does nothing                     11/1/2023
+# Currently does nothing, according to my knowledge...
 class AboutWindow(QtWidgets.QDialog):
 
     def __init__(self, main, index):
         super().__init__()
 
         self.version = main.version
+
+        # need to create this UI/About.ui file!!
         self.ui = uic.loadUi("Ui/About.ui")
         self.index = index
 
-        self.ui.setWindowTitle("PY-CHR v"+self.version+" - About")
-        self.ui.dialogAboutVersion.setText("PY-CHR v"+self.version)
+        self.ui.setWindowTitle("PY-CHR v" + self.version + " - About")
+        self.ui.dialogAboutVersion.setText("PY-CHR v" + self.version)
         self.ui.closeEvent = self.closeEvent
         self.ui.show()
 
-
-# what is this flag supposed to do? lol
+# what is this flag supposed to do?
 flag = [1]
 
-if __name__ == '__main__':
+if __name__ == "__main__":
 
     # are you planning on using console arguments in this app?
     app = QtWidgets.QApplication(sys.argv)

@@ -1,8 +1,6 @@
 
 # idk what the heck this is used for...
 # is it like the CHR ROM data that YY-CHR typically opens up with?
-#
-
 
 # -*- coding: utf-8 -*-
 
